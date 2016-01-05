@@ -16,6 +16,7 @@ Route::get('/', function()
     return Redirect::to('login');
 });
 
+Route::get('perfil',array('uses' => 'PerfilController@verPerfil'));
 Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
 Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
 Route::post('usuarios/crear',array('uses' => 'UsuariosController@crearUsuario'));
