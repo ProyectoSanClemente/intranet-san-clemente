@@ -6,26 +6,46 @@ class UsuariosController extends BaseController {
      */
     public function mostrarUsuarios()
     {
-        $usuarios = Usuario::all();
-        return View::make('usuarios.lista', array('usuarios' => $usuarios));
-     
+        if (Auth::check())
+        {
+            $usuarios = Usuario::all();
+            return View::make('usuarios.lista', array('usuarios' => $usuarios));
+        }
+        else
+            return View::make('login');        
     }
 
     public function nuevoUsuario()
     {
-        return View::make('usuarios.crear');
+        if (Auth::check())
+            return View::make('usuarios.crear');
+         else
+            return View::make('login');
     }
 
     public function crearUsuario()
     {
-        Usuario::create(Input::all());
-        return Redirect::to('usuarios');
+        if(Auth::check())
+        {
+            Usuario::create(Input::all());
+            return Redirect::to('usuarios');
+        }
+        else
+            return View::make('login');
+
     }
-    
+
     public function verUsuario($id)
     {
-        $usuario = Usuario::find($id);
-        return View::make('usuarios.ver',array('usuario'=> $usuario));
+        if (Auth::check())
+        {
+            $usuario = Usuario::find($id);
+            return View::make('usuarios.ver',array('usuario'=> $usuario));
+        }
+        else
+            return View::make('login');
+
+
     }
 
 }
