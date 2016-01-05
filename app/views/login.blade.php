@@ -4,10 +4,10 @@
 <span>{{ Session::get('mensaje_login') }}</span>
 @endif
 
-{{ Form::open(array('url' => 'login')) }}
+{{ Form::open(array('url' => 'login','class' => 'btn btn-primary btn-lg" href="#" role="button')) }}
 
     {{ Form::label('correo', 'Correo'); }}
-    {{ Form::text('correo'); }}
+    {{ Form::text('correo','',array('class' => 'btn btn-primary btn-lg" href="#" role="button')); }}
     {{ Form::label('password', 'Clave'); }}
     {{ Form::password('password'); }}
     {{ Form::submit('Ingresar'); }}
