@@ -12,7 +12,7 @@ class UsuariosController extends BaseController {
             return View::make('usuarios.lista', array('usuarios' => $usuarios));
         }
         else
-            return View::make('login');        
+            return Redirect::to('login');      
     }
 
     public function nuevoUsuario()
@@ -20,7 +20,7 @@ class UsuariosController extends BaseController {
         if (Auth::check())
             return View::make('usuarios.crear');
          else
-            return View::make('login');
+            return Redirect::to('login');
     }
 
     public function crearUsuario()
@@ -31,7 +31,7 @@ class UsuariosController extends BaseController {
             return Redirect::to('usuarios');
         }
         else
-            return View::make('login');
+            return Redirect::to('login');
 
     }
 
@@ -43,7 +43,7 @@ class UsuariosController extends BaseController {
             return View::make('usuarios.ver',array('usuario'=> $usuario));
         }
         else
-            return View::make('login');
+            return Redirect::to('login');
 
 
     }
