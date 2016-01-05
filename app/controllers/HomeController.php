@@ -26,7 +26,7 @@ class HomeController extends BaseController {
 	    if (Auth::attempt( array('correo' => Input::get('correo'), 'password' => Input::get('password') ), true )){
 	        return Redirect::to('usuarios');
 	    }else{
-	        return Redirect::to('login')->with('mensaje_login', 'Ingreso invalido');
+	        return Redirect::to('login')->with('mensaje_login', 'Ingreso inválido - Datos erróneos');
 	    }
 	}
 
