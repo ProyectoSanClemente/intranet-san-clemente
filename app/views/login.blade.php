@@ -1,35 +1,39 @@
-<h2>Ingresar</h2>
+<html>
+<head>
+{{ HTML::style('bootstrap/css/bootstrap.css')}}
+{{ HTML::style('bootstrap/css/bootstrap-theme.css')}}
+{{ HTML::style('bootstrap/css/bootstrap.min.js')}}
+{{ HTML::style('bootstrap/css/signin.css')}}
+<style>
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  align-items: center;
+   display: flex;
+}
+</style>
 
-@if (Session::has('mensaje_login'))
-<span>{{ Session::get('mensaje_login') }}</span>
-@endif
+</head> 
+    <body>
+        <div class="container vertical-center">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+	        <center><h2 class="form-signin-heading">Datos de Ingreso</h2></center>
 
-{{ Form::open(array('url' => 'login')) }}
+			@if (Session::has('mensaje_login'))
+			<span>{{ Session::get('mensaje_login') }}</span>
+			@endif
 
-    {{ Form::label('correo', 'Correo'); }}
-    {{ Form::text('correo'); }}
-    {{ Form::label('password', 'Clave'); }}
-    {{ Form::password('password'); }}
-    {{ Form::submit('Ingresar'); }}
+			{{ Form::open(array('url' => 'login','class' => 'form-signin')) }}
+			    {{ Form::label('correo', 'Correo',array('class' => 'sr-only')); }}
+			    {{ Form::text('correo','',array('class' => 'form-control input-lg','placeholder' => 'Direccion de Correo', 'required autofocus')); }}
+			    {{ Form::label('password', 'Clave',array('class' => 'sr-only')); }}
+			    {{ Form::password('password',array('class' => 'form-control input-lg','placeholder' => 'Password', 'required')); }}
+			    {{ Form::submit('Ingresar',array('class' => 'btn btn-lg btn-primary btn-block')); }}
 
-{{ Form::close() }}
+			{{ Form::close() }}
+	        </div>
+	    </div>
+	    </div>
 
-
-
-    <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container -->
+    </body>
+</html>
