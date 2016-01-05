@@ -21,7 +21,7 @@ Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
 Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
 Route::post('usuarios/crear',array('uses' => 'UsuariosController@crearUsuario'));
 Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
-
+Route::get('contacto', array('uses' => 'ContactoController@contacto'));
 Route::get('login', array('uses' => 'HomeController@showLogin'));
 Route::post('login', array('uses' => 'HomeController@doLogin'));
 Route::get('logout', array('uses' => 'HomeController@doLogout'));

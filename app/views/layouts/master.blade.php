@@ -10,7 +10,7 @@
       <li><a href="usuarios">Inicio</a></li>
       <li><a href="perfil">Mi página</a></li> 
       <li><a href="usuarios">Directorio Empleados</a></li>
-      <li><a href="#">Contacto</a></li>
+      <li><a href="contacto">Contacto</a></li>
       <li><a href="#">Eventos</a></li>
       <li><a href="#">Tareas</a></li>
       <li><a href="#">Noticias</a></li>
