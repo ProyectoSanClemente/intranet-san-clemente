@@ -16,10 +16,13 @@ Route::get('/', function()
     return Redirect::to('login');
 });
 
-Route::get('perfil',array('uses' => 'PerfilController@verPerfil'));
-Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
-Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
-Route::post('usuarios/crear',array('uses' => 'UsuariosController@crearUsuario'));
+
+
+Route::get('usuarios/create', array('uses' => 'UsuariosController@create'));
+Route::post('usuarios/store',array('uses' => 'UsuariosController@store'));
+Route::get('usuarios', array('uses' => 'UsuariosController@show'));
+Route::get('usuarios/edit',array('uses' => 'UsuariosController@edit'));
+Route::put('usuarios/update',array('uses' => 'UsuariosController@update'));
 Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
 Route::get('contacto', array('uses' => 'ContactoController@contacto'));
 Route::get('login', array('uses' => 'HomeController@showLogin'));

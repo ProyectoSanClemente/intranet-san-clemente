@@ -6,7 +6,7 @@
 
 @section('content')
         <h1>Crear Usuario</h1>       
-        {{ Form::open(array('url' => 'usuarios/crear')) }}
+        {{ Form::open(array('url' => 'usuarios/store')) }}
             {{Form::label('nombre', 'Nombre')}} 
             {{Form::text('nombre', '',array('class'=>'form-control'))}}
             {{Form::label('apellido', 'Apellido')}}

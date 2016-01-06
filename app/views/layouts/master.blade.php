@@ -7,18 +7,19 @@
 
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
-      <li><a href="usuarios">Inicio</a></li>
-      <li><a href="perfil">Mi página</a></li> 
-      <li><a href="usuarios">Directorio Empleados</a></li>
-      <li><a href="contacto">Contacto</a></li>
-      <li><a href="#">Eventos</a></li>
-      <li><a href="#">Tareas</a></li>
-      <li><a href="#">Noticias</a></li>
-      <li><a href="#">Fotos</a></li>
-      <li><a href="#">Contenido de Intranet</a></li>
-      <li><a href="#">Flujo de Trabajo</a></li>
-      <li><a href="#">Administrador</a></li>
-      <li><a href="#">Reportes</a></li>
+		<li> {{ HTML::link('usuarios', 'Inicio');}} </li>
+		<li> {{ HTML::link('usuarios/edit', 'Mi Pagina');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Directorio Empleados');}}</li> 
+		<li> {{ HTML::link('contacto', 'Contacto');}}</li> 
+
+		<li> {{ HTML::link('usuarios', 'Eventos');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Tareas');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Noticias');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Contenido de Intranet');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Flujo de Trabajo');}}</li> 
+		<li> {{ HTML::link('usuarios', 'Administrador');}}</li> 
+	 	<li> {{ HTML::link('usuarios', 'Reportes');}}</li> 
+      
       <li>@if(Auth::check())
     	{{ HTML::link('logout', 'Cerrar Sesion',array('class'=>'btn-lg btn-danger')); }}
 	@endif

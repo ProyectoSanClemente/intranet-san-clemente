@@ -4,26 +4,27 @@ class UsuariosController extends BaseController {
     /**
      * Mustra la lista con todos los usuarios
      */
-    public function mostrarUsuarios()
+    public function show()
     {
         if (Auth::check())
         {
             $usuarios = Usuario::all();
-            return View::make('usuarios.lista', array('usuarios' => $usuarios));
+            return View::make('usuarios.show', array('usuarios' => $usuarios));
         }
         else
             return Redirect::to('login');      
     }
 
-    public function nuevoUsuario()
+
+    public function create()
     {
         if (Auth::check())
-            return View::make('usuarios.crear');
+            return View::make('usuarios.create');
          else
             return Redirect::to('login');
     }
 
-    public function crearUsuario()
+    public function store()
     {
         if(Auth::check())
         {
@@ -32,7 +33,37 @@ class UsuariosController extends BaseController {
         }
         else
             return Redirect::to('login');
+    }
 
+ 
+
+    public function edit()
+    {
+        if (Auth::check())
+        {
+            $id=Auth::id();
+            $usuario = Usuario::find($id);
+            return View::make('usuarios.edit')->with('usuario', $usuario);
+        }
+        else
+            return Redirect::to('login');      
+    }
+
+     public function update()
+    {
+        if (Auth::check())
+        {
+            $id=Auth::id();
+            $usuario=Usuario::find($id);
+            $usuario->nombre = Input::get('Nombre');
+            $usuario->apellido = Input::get('Apellido');
+            $usuario->correo = Input::get('Correo');
+            $usuario->save();
+            Session::flash('mensaje', 'Actualizado exitosamente!');
+            return Redirect::to('usuarios/edit');
+        }
+        else
+            return Redirect::to('login');      
     }
 
     public function verUsuario($id)
@@ -44,8 +75,6 @@ class UsuariosController extends BaseController {
         }
         else
             return Redirect::to('login');
-
-
     }
 
 }
