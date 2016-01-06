@@ -1,49 +1,108 @@
-<?php 
-class NoticeController extends BaseController {
+<?php
 
-    public function mostrarNoticias()
-    {
+class NoticeController extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
         if (Auth::check())
         {
-            $usuarios = Usuario::all();
-            return View::make('usuarios.lista', array('usuarios' => $usuarios));
+            $notices = Notice::all();
+            return View::make('notices.index')->with('notices',$notices);
         }
         else
             return Redirect::to('login');      
-    }
+	}
 
-    public function nuevaNoticia()
-    {
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
         if (Auth::check())
-            return View::make('usuarios.crear');
+            return View::make('notices.create');
          else
             return Redirect::to('login');
-    }
+	}
 
-    public function crearNoticia()
-    {
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
         if(Auth::check())
         {
             Usuario::create(Input::all());
-            return Redirect::to('usuarios');
+            return Redirect::to('notices');
         }
         else
             return Redirect::to('login');
+	}
 
-    }
 
-    public function verNoticia($id)
-    {
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
         if (Auth::check())
         {
+            $id=Auth::id();
             $usuario = Usuario::find($id);
-            return View::make('usuarios.ver',array('usuario'=> $usuario));
+            return View::make('notices.edit')->with('notice', $notice);
         }
         else
-            return Redirect::to('login');
+            return Redirect::to('login');  
+	}
 
 
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
 
 }
-?>
