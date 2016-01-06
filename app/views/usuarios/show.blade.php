@@ -1,28 +1,19 @@
 @extends('layouts.master')
 
 @section('content')
+<h1>Mostrando {{ $usuario->nombre }}</h1>
 
-<div class="container">
-  <h2>Usuarios</h2>
-  <p>Informacion de todos los usuarios</p>            
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Correo</th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach($usuarios as $usuario)
-		<tr>
-        <td>{{$usuario->nombre}}</td>
-        <td>{{$usuario->apellido}}</td>
-        <td>{{$usuario->correo}}</td>
-      </tr>
-	@endforeach
+    <div class="jumbotron text-center">
+        <h2>{{ $usuario->nombre }}</h2>
+        <p>
+            <strong>Apellido:</strong> {{ $usuario->apellido }}
+            <strong>Email:</strong> {{ $usuario->correo }}<br>            
+        </p>
+    </div>
 
-    </tbody>
-  </table>
-</div>
 @stop
+
+
+
+
+
