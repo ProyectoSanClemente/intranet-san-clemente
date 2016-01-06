@@ -42,7 +42,7 @@ class NoticeController extends \BaseController {
 	{
         if(Auth::check())
         {
-            Usuario::create(Input::all());
+            Notice::create(Input::all());
             return Redirect::to('notices');
         }
         else
@@ -57,9 +57,16 @@ class NoticeController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		//
-	}
+    {
+        if (Auth::check())
+        {
+            $notice = Notice::find($id);
+            return View::make('notices.show')->with('notice',$notice);
+        }
+        else
+            return Redirect::to('login');      
+    }
+
 
 
 	/**
@@ -72,8 +79,7 @@ class NoticeController extends \BaseController {
 	{
         if (Auth::check())
         {
-            $id=Auth::id();
-            $usuario = Usuario::find($id);
+            $notice = Notice::find($id);
             return View::make('notices.edit')->with('notice', $notice);
         }
         else
@@ -89,8 +95,32 @@ class NoticeController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
-	}
+        if (Auth::check())
+        {
+            $rules = array(
+                'titulo'       => 'required',
+                'contenido'    => 'required',
+                'imagen'  => 'required',            
+            );
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails())
+            {
+                return Redirect::to('notices/'.$id.'/edit')
+                    ->withErrors($validator);       
+            }
+        else{
+                $notice=Notice::find($id);
+                $notice->titulo = Input::get('titulo');
+                $notice->contenido = Input::get('contenido');
+                $notice->imagen = Input::get('imagen');
+                $notice->save();
+                Session::flash('mensaje', 'Actualizado exitosamente');
+                return Redirect::to('notices');
+            }
+        }
+        else
+            return Redirect::to('login');      
+    }
 
 
 	/**
@@ -101,7 +131,13 @@ class NoticeController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+	        // delete
+        $notice = Notice::find($id);
+        $notice->delete();
+
+        // redirect
+        Session::flash('message', 'Noticia Borrada con Exito!');
+        return Redirect::to('notices');
 	}
 
 

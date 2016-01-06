@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-<h1>Mostrando {{ $usuario->nombre }}</h1>
+<h1>Mostrando {{ $notice->titulo}}</h1>
 
     <div class="jumbotron text-center">
-        <h2>{{ $usuario->nombre }}</h2>
+        <h2>{{ $notice->titulo }}</h2>
         <p>
-            <strong>Apellido:</strong> {{ $usuario->apellido }}
-            <strong>Email:</strong> {{ $usuario->correo }}<br>            
+            <strong>Contenido:</strong> {{ $notice->contenido }}
+            <strong>Imagen:</strong> {{ $notice->imagen }}<br>            
         </p>
     </div>
 
