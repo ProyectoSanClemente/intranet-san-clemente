@@ -1,26 +1,33 @@
 <?php 
 class UsuariosController extends BaseController {
 
-    /**
-     * Mustra la lista con todos los usuarios
-     */
-    public function show()
+    public function show($id)
     {
         if (Auth::check())
         {
-            $usuarios = Usuario::all();
-            return View::make('usuarios.show', array('usuarios' => $usuarios));
+            $usuario = Usuario::find($id);
+            return View::make('usuarios.show')->with('usuario',$usuario);
         }
         else
             return Redirect::to('login');      
     }
 
+    public function index()
+    {
+        if (Auth::check())
+        {
+            $usuarios = Usuario::all();
+            return View::make('usuarios.index')->with('usuarios',$usuarios);
+        }
+        else
+            return Redirect::to('login');    
+    }
 
     public function create()
     {
-        if (Auth::check())
+        if (Auth::check()) //Si esta logeado
             return View::make('usuarios.create');
-         else
+        else
             return Redirect::to('login');
     }
 
@@ -28,20 +35,34 @@ class UsuariosController extends BaseController {
     {
         if(Auth::check())
         {
-            Usuario::create(Input::all());
-            return Redirect::to('usuarios');
+            $rules = array(
+                'rut'       => 'required',
+                'nombre'    => 'required|alpha',
+                'apellido'  => 'required|alpha',
+                'correo'    => 'required|email',            
+            );
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails())
+            {
+                return Redirect::to('usuarios/create')
+                    ->withErrors($validator)
+                    ->withInput(Input::except('password'));      
+            }
+        else{
+                Usuario::create(Input::all());
+                Session::flash('mensaje', 'Successfully created nerd!');
+                return Redirect::to('usuarios');
+            }
         }
         else
             return Redirect::to('login');
     }
 
- 
-
-    public function edit()
+    public function edit($id)
     {
+
         if (Auth::check())
         {
-            $id=Auth::id();
             $usuario = Usuario::find($id);
             return View::make('usuarios.edit')->with('usuario', $usuario);
         }
@@ -49,32 +70,35 @@ class UsuariosController extends BaseController {
             return Redirect::to('login');      
     }
 
-     public function update()
+     public function update($id)
     {
         if (Auth::check())
         {
-            $id=Auth::id();
-            $usuario=Usuario::find($id);
-            $usuario->nombre = Input::get('Nombre');
-            $usuario->apellido = Input::get('Apellido');
-            $usuario->correo = Input::get('Correo');
-            $usuario->save();
-            Session::flash('mensaje', 'Actualizado exitosamente!');
-            return Redirect::to('usuarios/edit');
+            $rules = array(
+                'rut'       => 'required',
+                'nombre'    => 'required|alpha',
+                'apellido'  => 'required|alpha',
+                'correo'    => 'required|email',            
+            );
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails())
+            {
+                return Redirect::to('usuarios/'.$id.'/edit')
+                    ->withErrors($validator);       
+            }
+        else{
+                $usuario=Usuario::find($id);
+                $usuario->rut = Input::get('rut');
+                $usuario->nombre = Input::get('nombre');
+                $usuario->apellido = Input::get('apellido');
+                $usuario->correo = Input::get('correo');
+                $usuario->save();
+                Session::flash('mensaje', 'Actualizado exitosamente usuario ID:'.' '.$usuario->id.'!');
+                return Redirect::to('usuarios');
+            }
         }
         else
             return Redirect::to('login');      
-    }
-
-    public function verUsuario($id)
-    {
-        if (Auth::check())
-        {
-            $usuario = Usuario::find($id);
-            return View::make('usuarios.ver',array('usuario'=> $usuario));
-        }
-        else
-            return Redirect::to('login');
     }
 
 }

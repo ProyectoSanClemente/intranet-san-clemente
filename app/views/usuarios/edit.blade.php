@@ -1,22 +1,11 @@
 @extends('layouts.master')
 
-@section('sidebar')
-     @parent
-     Información de usuario
-@stop
 
 @section('content')
+<h1 class="page-header">Editar {{ $usuario->nombre.' '.$usuario->apellido }}</h1>
+<!-- if there are creation errors, they will show here -->
+{{ HTML::ul($errors->all()) }}
 
-
-
-
-    {{ HTML::link('usuarios', 'Volver'); }}
-    {{$usuario}}
-   
-
-
-<div class="container" style="padding-top: 60px;">
-  <h1 class="page-header">Hola {{$usuario->nombre." ".$usuario->apellido}}</h1>
   <div class="row">
     <!-- left column -->
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -34,25 +23,35 @@
           <div class="alert alert-info">{{ Session::get('mensaje') }}</div>
         @endif
 
-        {{ Form::open(array('url' => 'usuarios/update','method'=>'put','class' => 'form-horizontal','role'=>'form')) }}
+
+        {{ Form::model($usuario, array('route' => array('usuarios.update', $usuario->id), 'method' => 'PUT','class' => 'form-horizontal','role'=>'form')) }}
+
         <div class="form-group">
-            {{ Form::label('Nombre', 'Nombre',array('class' => 'col-lg-3 control-label')); }}
+            {{ Form::label('nombre', 'Nombre',array('class' => 'col-lg-3 control-label')); }}
             <div class="col-lg-8">
-                {{ Form::text('Nombre',$usuario->nombre,array('class' => 'form-control col-lg-8','required autofocus')); }}
+                {{ Form::text('nombre',$usuario->nombre,array('class' => 'form-control col-lg-8','required autofocus')); }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('Apellido', 'Apellido',array('class' => 'col-lg-3 control-label')); }}
+            {{ Form::label('rut', 'Rut',array('class' => 'col-lg-3 control-label')); }}
             <div class="col-lg-8">
-                {{ Form::text('Apellido',$usuario->apellido,array('class' => 'form-control col-lg-8')); }}
+                {{ Form::text('rut',$usuario->rut,array('class' => 'form-control col-lg-8','required autofocus')); }}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            {{ Form::label('apellido', 'Apellido',array('class' => 'col-lg-3 control-label')); }}
+            <div class="col-lg-8">
+                {{ Form::text('apellido',$usuario->apellido,array('class' => 'form-control col-lg-8')); }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('Correo', 'Correo',array('class' => 'col-lg-3 control-label')); }}
+            {{ Form::label('correo', 'Correo',array('class' => 'col-lg-3 control-label')); }}
             <div class="col-lg-8">
-                {{ Form::text('Correo',$usuario->correo,array('class' => 'form-control col-lg-8')); }}
+                {{ Form::text('correo',$usuario->correo,array('class' => 'form-control col-lg-8')); }}
             </div>
         </div>
 
@@ -66,6 +65,7 @@
        {{ Form::close() }}
     </div>
   </div>
-</div>
+
+
 
 @stop
