@@ -128,7 +128,7 @@ class NoticeController extends \BaseController {
         $notice->delete();
 
         // redirect
-        Session::flash('message', 'Noticia Borrada con Exito!');
+        Session::flash('mensaje', 'Noticia Borrada con Exito!');
         return Redirect::to('notices');
 	}
 
