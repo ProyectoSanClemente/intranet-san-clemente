@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Auth\UserInterface;
 class Usuario extends Eloquent implements UserInterface{ //Todos los modelos deben extender la clase Eloquent
+    protected $primaryKey= 'rut';
     protected $table = 'usuarios';
     protected $fillable = array('rut','nombre', 'apellido','correo','password');
     public $timestamps  = false;

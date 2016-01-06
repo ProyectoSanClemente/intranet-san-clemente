@@ -1,11 +1,11 @@
 <?php 
 class UsuariosController extends BaseController {
 
-    public function show($id)
+    public function show($rut)
     {
         if (Auth::check())
         {
-            $usuario = Usuario::find($id);
+            $usuario = Usuario::find($rut);
             return View::make('usuarios.show')->with('usuario',$usuario);
         }
         else
@@ -25,80 +25,88 @@ class UsuariosController extends BaseController {
 
     public function create()
     {
-        if (Auth::check()) //Si esta logeado
+        if (Auth::check())
+
+      
             return View::make('usuarios.create');
         else
-            return Redirect::to('login');
+            return Redirect::to('login');    
     }
 
     public function store()
     {
-        if(Auth::check())
-        {
+    
             $rules = array(
                 'rut'       => 'required',
                 'nombre'    => 'required|alpha',
                 'apellido'  => 'required|alpha',
-                'correo'    => 'required|email',            
+                'correo'    => 'required|email',         
             );
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails())
             {
                 return Redirect::to('usuarios/create')
                     ->withErrors($validator)
-                    ->withInput(Input::except('password'));      
+                    ->withInput(Input::except('password'));
             }
         else{
-                Usuario::create(Input::all());
+                $usuario           = new Usuario;
+                $usuario->rut     = Input::get('rut');
+                $usuario->nombre   = Input::get('nombre');
+                $usuario->apellido = Input::get('apellido');
+                $usuario->correo   = Input::get('correo');
+                $usuario->password = Hash::make($usuario->rut);
+                $usuario->save();
                 Session::flash('mensaje', 'Successfully created nerd!');
                 return Redirect::to('usuarios');
             }
         }
-        else
-            return Redirect::to('login');
-    }
 
-    public function edit($id)
+    public function edit($rut)
     {
 
         if (Auth::check())
         {
-            $usuario = Usuario::find($id);
+            $usuario = Usuario::find($rut);
             return View::make('usuarios.edit')->with('usuario', $usuario);
         }
         else
             return Redirect::to('login');      
     }
 
-     public function update($id)
+     public function update($rut)
     {
         if (Auth::check())
-        {
+        {            
             $rules = array(
-                'rut'       => 'required',
                 'nombre'    => 'required|alpha',
                 'apellido'  => 'required|alpha',
-                'correo'    => 'required|email',            
+                'correo'    => 'required|email',          
             );
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails())
             {
-                return Redirect::to('usuarios/'.$id.'/edit')
+                return Redirect::to('usuarios/'.$rut.'/edit')
                     ->withErrors($validator);       
             }
         else{
-                $usuario=Usuario::find($id);
-                $usuario->rut = Input::get('rut');
-                $usuario->nombre = Input::get('nombre');
-                $usuario->apellido = Input::get('apellido');
-                $usuario->correo = Input::get('correo');
-                $usuario->save();
-                Session::flash('mensaje', 'Actualizado exitosamente usuario ID:'.' '.$usuario->id.'!');
-                return Redirect::to('usuarios');
+            $usuario=Usuario::find($rut);
+            $usuario->nombre = Input::get('nombre');
+            $usuario->apellido = Input::get('apellido');
+            $usuario->correo = Input::get('correo');
+            $usuario->save();
+            
+            if (Input::hasFile('avatar')){                     
+                Image::make(Input::file('avatar'))->resize(300, 200)->save('images/avatar/'.$usuario->rut.'.jpg');
             }
+
+            Session::flash('mensaje', 'Actualizado exitosamente usuario Rut:'.' '.$usuario->rut.'!');
+            return Redirect::to('usuarios');
+
         }
-        else
-            return Redirect::to('login');      
+    }
+    else
+        return Redirect::to('login');      
     }
 
 }

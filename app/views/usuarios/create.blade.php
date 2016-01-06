@@ -6,10 +6,10 @@
 
 @section('content')
         {{ HTML::ul($errors->all()) }}
-        <h1>Crear Usuario</h1>   
+        <h1>Crear Usuario</h1>
         {{ Form::open(array('url' => 'usuarios','class'=>'form-horizontal','role'=>'form')) }}
-    
         <div class="form-group">
+        
             {{ Form::label('rut', 'Rut',array('class' => 'col-lg-3 control-label')); }}
             <div class="col-lg-8">
                 {{ Form::text('rut',null,array('class' => 'form-control col-lg-8','placeholder'=>'Rut')); }}

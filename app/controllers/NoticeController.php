@@ -67,14 +67,6 @@ class NoticeController extends \BaseController {
             return Redirect::to('login');      
     }
 
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
         if (Auth::check())

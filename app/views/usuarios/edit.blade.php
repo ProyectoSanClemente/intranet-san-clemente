@@ -7,17 +7,20 @@
 {{ HTML::ul($errors->all()) }}
 
 
-{{ Form::model($usuario, array('route' => array('usuarios.update', $usuario->id), 'method' => 'PUT','class' => 'form-horizontal','role'=>'form')) }}
+{{ Form::model($usuario, array('route' => array('usuarios.update', $usuario->rut), 'method' => 'PUT','class' => 'form-horizontal','role'=>'form','files'=> true)) }}
 
     <div class="row">
         <!-- left column -->
 
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="text-center">
-            <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
+        @if (file_exists('images/avatar/'.$usuario->rut.'.jpg'))
+            {{HTML::image('images/avatar/'.$usuario->rut.'.jpg',null,array('class'=>'avatar img-circle img-thumbnail'))}}
+        @else
+            {{HTML::image('images/avatar/default.png',null,array('class'=>'avatar img-circle img-thumbnail'))}}
+        @endif
             <h6>Subir otra imagen</h6>
-              {{ Form::file('avatar') }}
-            <input type="file" class="text-center center-block well well-sm">
+              {{ Form::file('avatar',array('class'=>"text-center center-block well well-sm",'accept'=>"image/x-png, image/gif, image/jpeg" )); }}
           </div>
         </div>
 
@@ -27,8 +30,6 @@
             @if (Session::has('mensaje'))
               <div class="alert alert-info">{{ Session::get('mensaje') }}</div>
             @endif
-
-
 
             <div class="form-group">
                 {{ Form::label('nombre', 'Nombre',array('class' => 'col-lg-3 control-label')); }}
