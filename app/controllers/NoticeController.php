@@ -26,7 +26,10 @@ class NoticeController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        if (Auth::check())
+            return View::make('notices.create');
+         else
+            return Redirect::to('login');
 	}
 
 
@@ -37,7 +40,13 @@ class NoticeController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        if(Auth::check())
+        {
+            Usuario::create(Input::all());
+            return Redirect::to('notices');
+        }
+        else
+            return Redirect::to('login');
 	}
 
 
@@ -61,7 +70,14 @@ class NoticeController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+        if (Auth::check())
+        {
+            $id=Auth::id();
+            $usuario = Usuario::find($id);
+            return View::make('notices.edit')->with('notice', $notice);
+        }
+        else
+            return Redirect::to('login');  
 	}
 
 
