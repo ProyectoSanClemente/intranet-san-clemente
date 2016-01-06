@@ -36,7 +36,7 @@
                 {{ Form::text('correo',null,array('class' => 'form-control col-lg-8','placeholder'=>'Correo')); }}
             </div>
         </div>
-
+        
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
