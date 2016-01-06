@@ -14,7 +14,7 @@
 
 		<li> {{ HTML::link('usuarios', 'Eventos');}}</li> 
 		<li> {{ HTML::link('usuarios', 'Tareas');}}</li> 
-		<li> {{ HTML::link('usuarios', 'Noticias');}}</li> 
+		<li> {{ HTML::link('notices', 'Noticias');}}</li> 
 		<li> {{ HTML::link('usuarios', 'Contenido de Intranet');}}</li> 
 		<li> {{ HTML::link('usuarios', 'Flujo de Trabajo');}}</li> 
 		<li> {{ HTML::link('usuarios', 'Administrador');}}</li> 

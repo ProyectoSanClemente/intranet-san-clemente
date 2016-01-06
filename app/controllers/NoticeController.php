@@ -1,49 +1,92 @@
-<?php 
-class NoticeController extends BaseController {
+<?php
 
-    public function mostrarNoticias()
-    {
+class NoticeController extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
         if (Auth::check())
         {
-            $usuarios = Usuario::all();
-            return View::make('usuarios.lista', array('usuarios' => $usuarios));
+            $notices = Notice::all();
+            return View::make('notices.index')->with('notices',$notices);
         }
         else
             return Redirect::to('login');      
-    }
-
-    public function nuevaNoticia()
-    {
-        if (Auth::check())
-            return View::make('usuarios.crear');
-         else
-            return Redirect::to('login');
-    }
-
-    public function crearNoticia()
-    {
-        if(Auth::check())
-        {
-            Usuario::create(Input::all());
-            return Redirect::to('usuarios');
-        }
-        else
-            return Redirect::to('login');
-
-    }
-
-    public function verNoticia($id)
-    {
-        if (Auth::check())
-        {
-            $usuario = Usuario::find($id);
-            return View::make('usuarios.ver',array('usuario'=> $usuario));
-        }
-        else
-            return Redirect::to('login');
+	}
 
 
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
 
 }
-?>
