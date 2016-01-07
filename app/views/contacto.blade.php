@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+<h1 class="page-header">Contacto</h1>
 <form class="form-horizontal" role="form" method="post" action="index.php">
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Name</label>

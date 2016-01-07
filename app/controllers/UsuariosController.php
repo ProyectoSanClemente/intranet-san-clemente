@@ -57,7 +57,7 @@ class UsuariosController extends BaseController {
                 $usuario->correo   = Input::get('correo');
                 $usuario->password = Hash::make($usuario->rut);
                 $usuario->save();
-                Session::flash('mensaje', 'Successfully created nerd!');
+                Session::flash('mensaje', 'Usuario creado exitosamente!');
                 return Redirect::to('usuarios');
             }
         }
@@ -108,6 +108,18 @@ class UsuariosController extends BaseController {
     else
         return Redirect::to('login');      
     }
+
+    public function destroy($rut)
+    {
+            // delete
+        $usuario = Usuario::find($rut);
+        $usuario->delete();
+
+        // redirect
+        Session::flash('mensaje', 'Usuario borrado con Exito!');
+        return Redirect::to('usuarios');
+    }
+
 
 }
 ?>

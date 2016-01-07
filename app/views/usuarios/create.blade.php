@@ -6,7 +6,7 @@
 
 @section('content')
         {{ HTML::ul($errors->all()) }}
-        <h1>Crear Usuario</h1>
+        <h1 class="page-header">Crear Usuario</h1>
         {{ Form::open(array('url' => 'usuarios','class'=>'form-horizontal','role'=>'form')) }}
         <div class="form-group">
         
